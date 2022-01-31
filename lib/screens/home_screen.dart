@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:practica_final_2/providers/movies_provider.dart';
 import 'package:practica_final_2/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final moviesProvider = Provider.of<MoviesProvider>(context, listen: true);
+    print(moviesProvider.onDisplayMovies);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Cartellera'),
@@ -22,7 +27,7 @@ class HomeScreen extends StatelessWidget {
             children: [
 
               // Targetes principals
-              CardSwiper(),
+              CardSwiper(movies: moviesProvider.onDisplayMovies),
               
               // Slider de pel·licules
               MovieSlider(),
