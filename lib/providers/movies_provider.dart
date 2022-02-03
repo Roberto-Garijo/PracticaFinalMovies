@@ -3,6 +3,7 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:practica_final_2/models/movie.dart';
 import 'package:practica_final_2/models/now_playing_response.dart';
+import 'package:practica_final_2/models/popular_response.dart';
 
 class MoviesProvider extends ChangeNotifier {
   String _baseUrl = 'api.themoviedb.org';
@@ -11,10 +12,12 @@ class MoviesProvider extends ChangeNotifier {
   String _page = '1';
 
   List<Movie> onDisplayMovies = [];
+  List<Movie> popularMovies = [];
 
   MoviesProvider() {
     print('Provider inicialitzat');
     this.getOnDisplayMovies();
+    this.getPopularMovies();
   }
 
   getOnDisplayMovies() async {
@@ -30,6 +33,23 @@ class MoviesProvider extends ChangeNotifier {
     final result = await http.get(url);
     final nowPlayingResponse = NowPlayingResponse.fromJson(result.body);
     onDisplayMovies = nowPlayingResponse.results;
+
+    notifyListeners();
+  }
+
+  getPopularMovies() async {
+    print('getPopularMovies');
+    var url =
+        Uri.https(_baseUrl, '3/movie/popular', {
+          'api_key': _apiKey,
+          'language': _language,
+          'page': _page
+          });
+
+    // Await the http get response, then decode the json-formatted response.
+    final result = await http.get(url);
+    final popularResponse = PopularResponse.fromJson(result.body);
+    popularMovies = popularResponse.results;
 
     notifyListeners();
   }
