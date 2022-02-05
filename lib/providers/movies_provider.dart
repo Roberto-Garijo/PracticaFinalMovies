@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
+import 'package:practica_final_2/models/models.dart';
 import 'package:practica_final_2/models/movie.dart';
 import 'package:practica_final_2/models/now_playing_response.dart';
 import 'package:practica_final_2/models/popular_response.dart';
@@ -13,6 +14,8 @@ class MoviesProvider extends ChangeNotifier {
 
   List<Movie> onDisplayMovies = [];
   List<Movie> popularMovies = [];
+  Map<int, List<Cast>> casting = {};
+
 
   MoviesProvider() {
     print('Provider inicialitzat');
@@ -53,4 +56,19 @@ class MoviesProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  Future <List<Cast>> getMovieCast(int idMovie) async {
+    var url =
+        Uri.https(_baseUrl, '3/movie/$idMovie/credits', {
+          'api_key': _apiKey,
+          'language': _language,
+          'page': _page
+          });
+    final result = await http.get(url);
+    final creditsResponse = CreditsResponse.fromJson(result.body);
+
+    casting[idMovie] = creditsResponse.cast;
+    return creditsResponse.cast;
+  }
+
 }
