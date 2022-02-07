@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:practica_final_2/providers/movies_provider.dart';
+import 'package:practica_final_2/screens/search_bar.dart';
 import 'package:practica_final_2/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -11,11 +12,14 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromRGBO(111, 148, 254, 100),
         title: Text('Cartellera'),
         elevation: 0,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showSearch(context: context, delegate: SearchBar(moviesProvider.popularMovies));
+            },
             icon: Icon(Icons.search_outlined)
           )
         ],

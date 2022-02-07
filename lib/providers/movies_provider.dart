@@ -5,6 +5,7 @@ import 'package:practica_final_2/models/models.dart';
 import 'package:practica_final_2/models/movie.dart';
 import 'package:practica_final_2/models/now_playing_response.dart';
 import 'package:practica_final_2/models/popular_response.dart';
+import 'package:practica_final_2/models/search_movie_response.dart';
 
 class MoviesProvider extends ChangeNotifier {
   String _baseUrl = 'api.themoviedb.org';
@@ -16,7 +17,6 @@ class MoviesProvider extends ChangeNotifier {
   List<Movie> popularMovies = [];
   Map<int, List<Cast>> casting = {};
 
-
   MoviesProvider() {
     print('Provider inicialitzat');
     this.getOnDisplayMovies();
@@ -25,12 +25,8 @@ class MoviesProvider extends ChangeNotifier {
 
   getOnDisplayMovies() async {
     print('getOnDisplayMovies');
-    var url =
-        Uri.https(_baseUrl, '3/movie/now_playing', {
-          'api_key': _apiKey,
-          'language': _language,
-          'page': _page
-          });
+    var url = Uri.https(_baseUrl, '3/movie/now_playing',
+        {'api_key': _apiKey, 'language': _language, 'page': _page});
 
     // Await the http get response, then decode the json-formatted response.
     final result = await http.get(url);
@@ -42,12 +38,8 @@ class MoviesProvider extends ChangeNotifier {
 
   getPopularMovies() async {
     print('getPopularMovies');
-    var url =
-        Uri.https(_baseUrl, '3/movie/popular', {
-          'api_key': _apiKey,
-          'language': _language,
-          'page': _page
-          });
+    var url = Uri.https(_baseUrl, '3/movie/popular',
+        {'api_key': _apiKey, 'language': _language, 'page': _page});
 
     // Await the http get response, then decode the json-formatted response.
     final result = await http.get(url);
@@ -57,13 +49,9 @@ class MoviesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future <List<Cast>> getMovieCast(int idMovie) async {
-    var url =
-        Uri.https(_baseUrl, '3/movie/$idMovie/credits', {
-          'api_key': _apiKey,
-          'language': _language,
-          'page': _page
-          });
+  Future<List<Cast>> getMovieCast(int idMovie) async {
+    var url = Uri.https(_baseUrl, '3/movie/$idMovie/credits',
+        {'api_key': _apiKey, 'language': _language, 'page': _page});
     final result = await http.get(url);
     final creditsResponse = CreditsResponse.fromJson(result.body);
 
@@ -71,4 +59,15 @@ class MoviesProvider extends ChangeNotifier {
     return creditsResponse.cast;
   }
 
+  Future<List<Movie>> getOnDisplaySearch(String query) async {
+    print('getOnDisplayPopularMovies');
+    var url = Uri.https(_baseUrl, '/3/search/movie',
+    {'api_key': _apiKey, 'language': _language, 'query' : query});
+
+    final result = await http.get(url);
+
+    final searchResponse = SearchResponse.fromJson(result.body);
+
+    return searchResponse.results;
+  }
 }
