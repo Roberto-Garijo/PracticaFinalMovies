@@ -62,7 +62,7 @@ class MoviesProvider extends ChangeNotifier {
   Future<List<Movie>> getOnDisplaySearch(String query) async {
     print('getOnDisplayPopularMovies');
     var url = Uri.https(_baseUrl, '/3/search/movie',
-    {'api_key': _apiKey, 'language': _language, 'query' : query});
+        {'api_key': _apiKey, 'language': _language, 'query': query});
 
     final result = await http.get(url);
 

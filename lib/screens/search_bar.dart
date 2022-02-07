@@ -34,7 +34,7 @@ class SearchBar extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
-    final listaSugerencias = movie
+    final sampleMovies = movie
         .where((movie) =>
             movie.title.toLowerCase().startsWith(query.toLowerCase()))
         .toList();
@@ -42,12 +42,12 @@ class SearchBar extends SearchDelegate<String> {
       return ListView.builder(
         itemBuilder: (context, index) => ListTile(
           onTap: () => Navigator.pushNamed(context, 'details',
-              arguments: listaSugerencias[index]),
+              arguments: sampleMovies[index]),
           leading: Image(
-              image: NetworkImage(listaSugerencias[index].fullPosterPath)),
-          title: Text(listaSugerencias[index].title),
+              image: NetworkImage(sampleMovies[index].fullPosterPath)),
+          title: Text(sampleMovies[index].title),
         ),
-        itemCount: listaSugerencias.length,
+        itemCount: sampleMovies.length,
       );
     } else {
       return FutureBuilder(
@@ -82,7 +82,7 @@ class SearchBar extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
-    final listaSugerencias = movie
+    final sampleMovies = movie
         .where((movie) =>
             movie.title.toLowerCase().startsWith(query.toLowerCase()))
         .toList();
@@ -90,12 +90,12 @@ class SearchBar extends SearchDelegate<String> {
       return ListView.builder(
         itemBuilder: (context, index) => ListTile(
           onTap: () => Navigator.pushNamed(context, 'details',
-              arguments: listaSugerencias[index]),
+              arguments: sampleMovies[index]),
           leading: Image(
-              image: NetworkImage(listaSugerencias[index].fullPosterPath)),
-          title: Text(listaSugerencias[index].title),
+              image: NetworkImage(sampleMovies[index].fullPosterPath)),
+          title: Text(sampleMovies[index].title),
         ),
-        itemCount: listaSugerencias.length,
+        itemCount: sampleMovies.length,
       );
     } else {
       return FutureBuilder(
