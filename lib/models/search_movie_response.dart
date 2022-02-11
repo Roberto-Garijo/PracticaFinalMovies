@@ -1,7 +1,8 @@
 import 'dart:convert';
  
 import 'models.dart';
- 
+ //Mitjançant el postman i el quicktype.io anam fent peticions a la api i amb el json que ens retorna anam mapejant totes les clases necessaries, com
+//per exemple la classe SearchResponse. Un cop la copiam anam arreglant tots els errors que ens doni i repetim el procés amb totes les classes necessaries,
 class SearchResponse {
     SearchResponse({
         required this.page,

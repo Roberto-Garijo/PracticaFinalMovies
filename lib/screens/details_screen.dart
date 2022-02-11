@@ -6,9 +6,9 @@ class DetailsScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    // TODO: Canviar després per una instància de Peli
+    //A aquesta classe passarem un objecte peli, que vendra donat depenguent del objecte que seleccionem al movie slider o el card swiper
     final Movie peli = ModalRoute.of(context)?.settings.arguments as Movie;
-
+    //Al build retornam un scaffold, on anam construint la pagina cridant a tots els widgets amb objectes movie com a parametre
     return Scaffold(
         body: CustomScrollView(
           slivers: [
@@ -34,6 +34,7 @@ class _CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Exactament igual que la AppBaer però amb bon comportament davant scroll
+    //Amb el objecte movie que passam per el constructor anam completant tots els mètodes amb els paràmetres que toquen
     return SliverAppBar(
       backgroundColor: Colors.indigo,
       expandedHeight: 200,

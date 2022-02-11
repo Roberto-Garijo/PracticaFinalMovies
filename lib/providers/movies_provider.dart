@@ -7,7 +7,11 @@ import 'package:practica_final_2/models/now_playing_response.dart';
 import 'package:practica_final_2/models/popular_response.dart';
 import 'package:practica_final_2/models/search_movie_response.dart';
 
+
+//A aquesta classe anirem anant fent peticions als diferents endPoints de l'api de la movieDB.
+//Construirem una url depenguent del resultat que volguem obtenir de l'api
 class MoviesProvider extends ChangeNotifier {
+//Declaram una serie de constants que emplearem a la petició de l'api
   String _baseUrl = 'api.themoviedb.org';
   String _apiKey = 'bd5e8190ec48ff95b2d91b8041d3ac66';
   String _language = 'es-ES';
@@ -17,6 +21,7 @@ class MoviesProvider extends ChangeNotifier {
   List<Movie> popularMovies = [];
   Map<int, List<Cast>> casting = {};
 
+//Depenguent del metode que empleam feim una petició o un altre
   MoviesProvider() {
     print('Provider inicialitzat');
     this.getOnDisplayMovies();
@@ -48,7 +53,7 @@ class MoviesProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-
+//Els dos darrers metodes retornam una future list de cast i de les search movie
   Future<List<Cast>> getMovieCast(int idMovie) async {
     var url = Uri.https(_baseUrl, '3/movie/$idMovie/credits',
         {'api_key': _apiKey, 'language': _language, 'page': _page});

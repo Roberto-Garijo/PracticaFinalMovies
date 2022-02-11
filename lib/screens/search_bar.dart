@@ -8,6 +8,10 @@ class SearchBar extends SearchDelegate<String> {
   final List<Movie> movie;
   SearchBar(this.movie);
 
+  //Aquesta pantalla s'obre quan pitjam els botó de la 'llupa' a la home screen. 
+  //quan feim una clase que extends a searchDelegate hem de fer 4 override amb metodes que realitzen diferents accions
+
+  //El primer botó esborra tot el texte introduit per cercar pelis
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -31,6 +35,11 @@ class SearchBar extends SearchDelegate<String> {
         ));
   }
 
+//Aquest boto mostra els resultats donats quan l'usuari pitja 'ENTER'
+//Primer mostra els resultats de la llista de pelis populars quan el texte introduit es null
+//En el moment en que l'usuari introdueix texte es fa la peticio a l'api i mentre que es carreguen els resultats
+//es mostra una petita 'pantalla de carrega'.
+//En el moment que carrega totes les dates va introduint tot a un ListView
   @override
   Widget buildResults(BuildContext context) {
     final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
